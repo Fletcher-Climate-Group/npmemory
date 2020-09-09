@@ -9,10 +9,7 @@ __pycache__/
 *.dll
 
 # Content
-*.html
-
-
-# Distribution / packaging
+*.html# Distribution / packaging
 .Python
 develop-eggs/
 downloads/
@@ -31,9 +28,7 @@ share/python-wheels/
 *.egg
 MANIFEST
 
-tests/test_data/*
-
-nradar.json
+tests/
 
 *.whl
 build/bdist.linux-x86_64
