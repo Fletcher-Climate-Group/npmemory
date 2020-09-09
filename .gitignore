@@ -1,0 +1,47 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+*.o
+*.dll
+
+# Content
+*.html
+
+
+# Distribution / packaging
+.Python
+develop-eggs/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+tests/test_data/*
+
+nradar.json
+
+*.whl
+build/bdist.linux-x86_64
+build/lib
+
+*.pyc
+*.nc
+*.png
+*.gif
+*.json
+*.coverage
