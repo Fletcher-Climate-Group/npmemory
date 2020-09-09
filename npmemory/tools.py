@@ -1,4 +1,4 @@
-/*
+"""
 Copyright © 2020 Daniel Hogg
 
 Permission is hereby granted, free of charge, to any person obtaining
@@ -19,8 +19,12 @@ IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
 CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
 TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-*/
+"""
 
-// Sample code which takes an input n x m grid, and performs a box average.
-// Note: It is expected that n mod k = 0, and m mod j = 0.
+import time
 
+def show_performance():
+    """
+    
+    """
+    pass
