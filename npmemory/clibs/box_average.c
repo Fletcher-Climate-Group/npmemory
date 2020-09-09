@@ -75,17 +75,28 @@ void box_average(void * np_ptr, int xdim, int ydim, int xstep, int ystep){
 
     // Array to store the intermediate results of the box average.
     int work_array_size = work_size(xdim, ydim, xstep, ystep);
-    float * work_array = malloc(sizeof(float) * work_array_size);
+    float * work_array = calloc(sizeof(float) * work_array_size);
 
     int i, j;
 
+    int work_x_max = xdim / xstep;
+    int work_y_max = ydim / ystep;
+
     for (i = 0; i < xdim; i++){
         for (j = 0; i < ydim; j++){
-            int work_idx;
             // Calculate work index
+            int work_x = i % xstep;
+            int work_y = j % ystep;
+            int work_idx = work_x * work_y_max + work_y;
+            int box_idx = i * ydim + j;
+            work_array[work_idx] += box[box_idx];
 
         }
     }
+
+    // Iterating over work array
+
+
 
     return;
 }
