@@ -30,7 +30,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include <string.h>
 
 
-void crash_logger(error_code){
+void crash_logger(int error_code){
     // If program encounters a problem, crash
     // immediately to prevent memory corruption.
 
@@ -75,7 +75,7 @@ void box_average(void * np_ptr, int xdim, int ydim, int xstep, int ystep){
 
     // Array to store the intermediate results of the box average.
     int work_array_size = work_size(xdim, ydim, xstep, ystep);
-    float * work_array = calloc(sizeof(float) * work_array_size);
+    float * work_array = calloc(work_array_size, sizeof(float));
 
     int i, j;
 
@@ -83,20 +83,37 @@ void box_average(void * np_ptr, int xdim, int ydim, int xstep, int ystep){
     int work_y_max = ydim / ystep;
 
     for (i = 0; i < xdim; i++){
-        for (j = 0; i < ydim; j++){
+        for (j = 0; j < ydim; j++){
             // Calculate work index
-            int work_x = i % xstep;
-            int work_y = j % ystep;
+            int work_x = i / xstep;
+            int work_y = j / ystep;
             int work_idx = work_x * work_y_max + work_y;
             int box_idx = i * ydim + j;
-            work_array[work_idx] += box[box_idx];
 
+            work_array[work_idx] += box[box_idx];
         }
     }
 
     // Iterating over work array
+    float subgrid_size = (float) (xstep * ystep);
 
+    for (i = 0; i < work_x_max; i++){
+        for (j = 0; j < work_y_max; j++){
+            int work_idx = i * work_y_max + j;
+            work_array[work_idx] = work_array[work_idx] / subgrid_size;
+        }
+    }
 
+    // Now, assigning values based on corresponding work_idx
+    for (i = 0; i < xdim; i++){
+        for (j = 0; j < ydim; j++){
+            int work_x = i / xstep;
+            int work_y = j / ystep;
+            int work_idx = work_x * work_y_max + work_y;
+            int box_idx = i * ydim + j;
+            box[box_idx] = work_array[work_idx];
+        }
+    }
 
     return;
 }

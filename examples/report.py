@@ -21,9 +21,50 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 """
 
+import time
+import ctypes
+
 import numpy as np
 import matplotlib.pyplot as plt
 
+import npmemory
+import climate
+
+
 def build_report():
 
-    pass
+    test_dims = (1200,1000)
+
+    random_array = np.random.rand(test_dims[0], test_dims[1])
+
+    inc_x = 60
+    inc_y = 25
+
+    t0 = time.time()
+
+    random_c_array = np.copy(random_array)
+
+    npmemory.analysis.c_box_average(random_c_array, inc_x, inc_y)
+
+    t1 = time.time()
+
+    elapsed = t1 - t0
+    climate.core.tools.arr_info(random_array, "c_after")
+    print("Time elapsed:", elapsed)
+
+    t2 = time.time()
+
+    random_py_array = np.copy(random_array)
+
+    npmemory.analysis.py_box_average(random_py_array, inc_x, inc_y)
+
+    t3 = time.time()
+
+    py_elapsed = t3 - t2
+    climate.core.tools.arr_info()
+    print("Time elapsed Python:", py_elapsed)
+
+
+
+build_report()
+

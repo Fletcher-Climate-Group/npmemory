@@ -32,14 +32,14 @@ long_description = """# npmemory
 package_data = dict()
 
 if os.name == 'posix':
-    package_data['npmemory.box_average'] = ['box_average.so']
+    package_data['npmemory.clibs'] = ['box_average.so']
 elif os.name == 'nt':
-    package_data['npmemory.box_average'] = ['box_average.dll']
+    package_data['npmemory.clibs'] = ['box_average.dll']
 else:
     raise OSError(f"OS not supported: {os.name}")
 
 setup(
-    name='',
+    name='npmemory',
     version='1.0.0',
     description='NumPy memory editing for maximum performance.',
     long_description=long_description,

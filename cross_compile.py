@@ -88,7 +88,7 @@ def rebuild():
 
     base_dir = os.getcwd()
 
-    clibs_dir = os.path.join(base_dir, "clibs")
+    clibs_dir = os.path.join(base_dir, "npmemory", "clibs")
 
     if not os.path.isdir("./build"):
         os.mkdir("./build")
