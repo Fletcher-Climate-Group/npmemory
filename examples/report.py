@@ -28,7 +28,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 import npmemory
-import climate
 
 
 def build_report():
@@ -44,13 +43,15 @@ def build_report():
 
     random_c_array = np.copy(random_array)
 
+    npmemory.tools.arr_info(random_array, "random")
+
     npmemory.analysis.c_box_average(random_c_array, inc_x, inc_y)
 
     t1 = time.time()
 
-    elapsed = t1 - t0
-    climate.core.tools.arr_info(random_array, "c_after")
-    print("Time elapsed:", elapsed)
+    c_elapsed = t1 - t0
+    npmemory.tools.arr_info(random_c_array, "c_after")
+    print("Time elapsed:", c_elapsed)
 
     t2 = time.time()
 
@@ -61,10 +62,11 @@ def build_report():
     t3 = time.time()
 
     py_elapsed = t3 - t2
-    climate.core.tools.arr_info()
+    npmemory.tools.arr_info(random_py_array, "py_after")
     print("Time elapsed Python:", py_elapsed)
 
-
+    factor = py_elapsed / c_elapsed
+    print(f"Speed differential: {factor:03}")
 
 build_report()
 

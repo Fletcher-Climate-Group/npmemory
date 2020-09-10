@@ -28,3 +28,21 @@ def show_performance():
     
     """
     pass
+
+
+def arr_info(array, label):
+    """
+    Display NumPy array information.
+    """
+
+    print("Array statistics for:", label)
+
+    shape = array.shape
+    minimum = array.min()
+    maximum = array.max()
+    mean = array.mean()
+
+    print("Shape:", shape)
+    print("Data type:", array.dtype)
+    print(f"Min: {minimum}, Max: {maximum}")
+    print(f"Mean: {mean}")

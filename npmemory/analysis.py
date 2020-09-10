@@ -81,8 +81,12 @@ def py_box_average(np_array, x_inc, y_inc):
 
     for x in range(0, x_dim):
         for y in range(0, y_dim):
-            work_x = x / x_inc
-            work_y = y / y_inc
+            work_x = int(x // x_inc)
+            work_y = int(y // y_inc)
+            #latest_numpy = np_array[x][y]
+            #print("latest_numpy:", latest_numpy)
+            #print(f"type: {type(work_x)}, value: {work_x}")
+            #print(f"type: {type(work_y)}, value: {work_y}")
             work_array[work_x][work_y] += np_array[x][y]
 
 
@@ -94,6 +98,6 @@ def py_box_average(np_array, x_inc, y_inc):
 
     for x in range(0, x_dim):
         for y in range(0, y_dim):
-            work_x = x / x_inc
-            work_y = y / y_inc
+            work_x = int(x // x_inc)
+            work_y = int(y // y_inc)
             np_array[x][y] = work_array[work_x][work_y]
