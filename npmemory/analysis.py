@@ -28,6 +28,8 @@ import pkg_resources
 
 import numpy as np
 
+import npmemory.tools
+
 # Must import .dll or .so here
 ANALYSIS_BINARY = None
 if os.name == 'posix':
@@ -43,7 +45,11 @@ box_average = c_executable.box_average
 
 
 
-def c_box_average(np_array, x_inc, y_inc):
+def c_box_average(np_array, x_inc, y_inc, debug=False):
+    """
+    Call C routine from CDLL to accelerate box average.
+    """
+
     # Ensure float32 input
 
     # TODO: Insert type check
@@ -67,7 +73,10 @@ def c_box_average(np_array, x_inc, y_inc):
 
 
 
-def py_box_average(np_array, x_inc, y_inc):
+def py_box_average(np_array, x_inc, y_inc, debug=False):
+    """
+    Box averaging, written in pure Python
+    """
 
     shape = np_array.shape
     
@@ -86,21 +95,21 @@ def py_box_average(np_array, x_inc, y_inc):
         for y in range(0, y_dim):
             work_x = int(x // x_inc)
             work_y = int(y // y_inc)
-            #latest_numpy = np_array[x][y]
-            #print("latest_numpy:", latest_numpy)
-            #print(f"type: {type(work_x)}, value: {work_x}")
-            #print(f"type: {type(work_y)}, value: {work_y}")
             work_array[work_x][work_y] += np_array[x][y]
-
 
     subgrid_size = x_inc * y_inc
 
     for i in range(0, x_grid):
         for j in range(0, y_grid):
-            work_array[i][j] = work_array[i][j] // subgrid_size
+            work_array[i][j] = work_array[i][j] / subgrid_size
 
     for x in range(0, x_dim):
         for y in range(0, y_dim):
             work_x = int(x // x_inc)
             work_y = int(y // y_inc)
             np_array[x][y] = work_array[work_x][work_y]
+
+    if debug:
+        npmemory.tools.arr_info(np_array, "np_array")
+
+    return np_array

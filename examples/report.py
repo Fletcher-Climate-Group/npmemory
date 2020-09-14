@@ -30,6 +30,31 @@ import matplotlib.pyplot as plt
 import npmemory
 
 
+def print_report(py_time, c_time, py_array, c_array):
+
+    print("Time elapsed C routine:", c_time)
+    print("Time elapsed Python:", py_time)
+
+    abs_error_array = np.abs(py_array - c_array)
+
+    npmemory.tools.arr_info(abs_error_array, "error_array")
+
+    # Note, these computations oculd also be done using np.float64 - that
+    # is also an option. This would result in a lower floating_point_tolerance
+    # (i.e. more precise results).
+
+    floating_point_tolerance = 0.00001
+    print("Floating point tolerance:", floating_point_tolerance)
+
+    if abs_error_array.max() < floating_point_tolerance:
+        print("Success: Grid results are consistent between Python and C methods up to floating-point tolerance.")
+    else:
+        print("Failed: Python and C methods return different results - check implementation.")
+
+    factor = py_time / c_time
+    print(f"Speed differential: {factor:03}")
+
+
 def build_report():
 
     test_dims = (1200,1000)
@@ -44,31 +69,23 @@ def build_report():
     t0 = time.time()
 
     random_c_array = np.copy(random_array)
-
-    npmemory.tools.arr_info(random_array, "random")
-
     npmemory.analysis.c_box_average(random_c_array, inc_x, inc_y)
 
     t1 = time.time()
 
     c_elapsed = t1 - t0
-    npmemory.tools.arr_info(random_c_array, "c_after")
-    print("Time elapsed:", c_elapsed)
 
     t2 = time.time()
 
     random_py_array = np.copy(random_array)
-
-    npmemory.analysis.py_box_average(random_py_array, inc_x, inc_y)
+    py_box = npmemory.analysis.py_box_average(random_py_array, inc_x, inc_y)
 
     t3 = time.time()
 
     py_elapsed = t3 - t2
-    npmemory.tools.arr_info(random_py_array, "py_after")
-    print("Time elapsed Python:", py_elapsed)
 
-    factor = py_elapsed / c_elapsed
-    print(f"Speed differential: {factor:03}")
+    print_report(py_elapsed, c_elapsed, py_box, random_c_array)
+
 
 build_report()
 
