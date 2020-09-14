@@ -1,12 +1,12 @@
 # npmemory
-Enter README text here.
+NumPy memory editing for efficient array calculations.
 
 Results for sample routine:
 
 | Box Averaging | Pure Python (ms) | Python with memory editing (ms) | Speed factor |
 |---|---|---|---|
 | Windows 10 | 2015 ms | 18 ms | 112x |
-| Linux |   |   |   |
+| Linux | 1422 ms | 13 ms | 107x |
 
 Note: Tested on Intel i9-9880
 
@@ -17,7 +17,7 @@ Graph showing speed increase
 Step 1: Install the 64-bit TDM GCC compiler from the following link:
 https://jmeubank.github.io/tdm-gcc/ Ensure that you select 'TDM GCC MinGW w64'
 
-Step 2: git clone https://github.com
+Step 2: git clone https://github.com/Fletcher-Climate-Group/npmemory
 
 Step 3: Run 'python cross_compile.py'
 
@@ -25,7 +25,7 @@ Step 3: Run 'python cross_compile.py'
 
 Step 1: Install the latest version of *gcc* for your distribution
 
-Step 2: git clone https://github.com/
+Step 2: git clone https://github.com/Fletcher-Climate-Group/npmemory
 
 Step 3: Run 'python cross_compile.py'
 
