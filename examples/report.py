@@ -34,7 +34,9 @@ def build_report():
 
     test_dims = (1200,1000)
 
-    random_array = np.random.rand(test_dims[0], test_dims[1])
+    random_array_64 = np.random.rand(test_dims[0], test_dims[1])
+
+    random_array = np.float32(random_array_64)
 
     inc_x = 60
     inc_y = 25

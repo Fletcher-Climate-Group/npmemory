@@ -44,6 +44,9 @@ box_average = c_executable.box_average
 
 
 def c_box_average(np_array, x_inc, y_inc):
+    # Ensure float32 input
+
+    # TODO: Insert type check
 
     shape = np_array.shape
     
