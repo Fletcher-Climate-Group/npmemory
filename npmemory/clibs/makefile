@@ -1,12 +1,14 @@
-UTIL_CFLAGS = -shared -Wl,-soname,box_average
 
 CC = gcc
 
+CFLAGS=
+
+UNAME_S = $(shell uname -s)
 ifeq ($(UNAME_S),Linux)
-	CFLAGS = -shared -I . -Wl,-soname,box_average -o box_average.so -FPIC
+	CFLAGS += -shared -I . -Wl,-soname,box_average -o box_average.so -FPIC
 endif
 ifeq ($(UNAME_S),Darwin)
-	CFLAGS = -o box_average.so
+	CFLAGS += -o box_average.so
 endif
 
 default: clean box_average
