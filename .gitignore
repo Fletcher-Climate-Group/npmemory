@@ -28,7 +28,7 @@ share/python-wheels/
 *.egg
 MANIFEST
 
-tests/
+
 
 *.whl
 build/bdist.linux-x86_64

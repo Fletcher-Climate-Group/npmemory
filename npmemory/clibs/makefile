@@ -1,12 +1,18 @@
 UTIL_CFLAGS = -shared -Wl,-soname,box_average
 
 CC = gcc
-CFLAGS = -I . -fPIC
+
+ifeq ($(UNAME_S),Linux)
+	CFLAGS = -shared -I . -Wl,-soname,box_average -o box_average.so -FPIC
+endif
+ifeq ($(UNAME_S),Darwin)
+	CFLAGS = -o box_average.so
+endif
 
 default: clean box_average
 
 box_average:
-	$(CC) -shared -I . -Wl,-soname,box_average -o box_average.so -FPIC box_average.c
+	$(CC) $(CFLAGS) box_average.c
 
 clean:
 	-rm -f box_average.so
