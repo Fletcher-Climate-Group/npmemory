@@ -32,7 +32,11 @@ Step 3: Run 'python cross_compile.py'
 
 ## Mac OSX Setup
 
-Coming soon!
+Step 1: Install the latest version of *gcc* using Homebrew
+
+Step 2: git clone https://github.com/Fletcher-Climate-Group/npmemory
+
+Step 3: Run 'python cross_compile.py'
 
 
 ## Quick Start (all operating systems)
