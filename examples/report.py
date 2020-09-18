@@ -25,7 +25,6 @@ import time
 import ctypes
 
 import numpy as np
-import matplotlib.pyplot as plt
 
 import npmemory
 

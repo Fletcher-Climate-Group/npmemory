@@ -30,14 +30,17 @@ import numpy as np
 
 import npmemory.tools
 
-# Must import .dll or .so here
+# Must import .dll or .so here (or .dylib for OSX)
 ANALYSIS_BINARY = None
-if os.name == 'posix':
+
+if sys.platform == 'linux' or sys.platform == 'linux2':
     ANALYSIS_BINARY = pkg_resources.resource_filename('npmemory.clibs', 'box_average.so')
-elif os.name == 'nt':
+elif sys.platform == 'darwin':
+    ANALYSIS_BINARY = pkg_resources.resource_filename('npmemory.clibs', 'box_average.dylib')
+elif sys.platform == 'win32':
     ANALYSIS_BINARY = pkg_resources.resource_filename('npmemory.clibs', 'box_average.dll')
 else:
-    raise OSError("Operating system not supported.")
+    raise OSError(f"Operating system not supported: {sys.platform}")
 
 
 c_executable = ctypes.CDLL(ANALYSIS_BINARY)

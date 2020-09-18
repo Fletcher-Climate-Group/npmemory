@@ -8,7 +8,7 @@ ifeq ($(UNAME_S),Linux)
 	CFLAGS += -shared -I . -Wl,-soname,box_average -o box_average.so -FPIC
 endif
 ifeq ($(UNAME_S),Darwin)
-	CFLAGS += -o box_average.so
+	CFLAGS += -dynamiclib -o box_average.dylib
 endif
 
 default: clean box_average

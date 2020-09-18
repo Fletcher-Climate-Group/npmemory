@@ -21,7 +21,7 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 """
 
-import os
+from sys import platform
 from setuptools import setup, find_packages
 
 # Get the long description from the README file
@@ -31,12 +31,14 @@ long_description = """# npmemory
 # OS detection in order to set dynamic libraries correctly
 package_data = dict()
 
-if os.name == 'posix':
+if platform == 'linux' or platform == 'linux2':
     package_data['npmemory.clibs'] = ['box_average.so']
-elif os.name == 'nt':
+elif platform == 'win32':
     package_data['npmemory.clibs'] = ['box_average.dll']
+elif platform == 'darwin':
+    package_data['npmemory.clibs'] = ['box_average.dylib']
 else:
-    raise OSError(f"OS not supported: {os.name}")
+    raise OSError(f"OS not supported: {platform}")
 
 setup(
     name='npmemory',
